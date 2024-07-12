@@ -34281,21 +34281,21 @@ const oxfamCoordinates = [
     [50.6195281, 3.3717123], // Comptoir Coprosain - Tournai / Gros HUB 4
     [50.6807074, 4.3675192], // Comptoir Coprosain - Braine-l'Alleud / Gros HUB 5
     [50.6195647, 5.564336], // Chez Georgette / Gros HUB 6
-    [50.628649, 5.8001565], // Ferme Colyn / Gros HUB 7 NOPPP
-    [50.6220947, 5.5881458], // Les Petits Producteurs (Vennes) / Gros HUB 8 NOPPP
-    [50.6353494, 3.7153965] // DIVERS DRIVE FOUCAUMONT / Gros HUB 9 NOPPP
+    [50.628649, 5.8001565], // Ferme Colyn / Gros HUB 7 / Not working
+    [50.6220947, 5.5881458], // Les Petits Producteurs (Vennes) / Gros HUB 8 / Not working
+    [50.6353494, 3.7153965] // DIVERS DRIVE FOUCAUMONT / Gros HUB 9 / Not working
     
 ];
 
 
-// Function to check if coordinates match any in the excluded list
+// Vérifier si les coordonnées sont dans la liste
 function isOxfamCoordinate(coord) {
     return oxfamCoordinates.some(oxfamCoord =>
         oxfamCoord[0] === coord[1] && oxfamCoord[1] === coord[0]
     );
 }
 
-// Filter function to exclude features with coordinates matching the Oxfam list
+// Vérifier 
 function filterFeatures(feature) {
     if (feature.geometry.type === 'LineString') {
         return !feature.geometry.coordinates.some(coord => isOxfamCoordinate(coord));
