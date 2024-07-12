@@ -34213,4 +34213,101 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-L.geoJSON(geojsonFeature).addTo(map);
+// Fonction de filtrage
+//function filterFeatures(feature) {
+//    return feature.properties.type === "desiredType";
+//}
+
+// Ajouter le GeoJSON à la carte avec le filtre
+//L.geoJSON(geojsonFeature, {filter: filterFeatures}).addTo(map);
+
+//L.geoJSON(geojsonFeature).addTo(map);
+
+const oxfamCoordinates = [
+    [50.8460239, 4.347584],  // Magasin du Monde Oxfam Wereldwinkel Brussels
+    [50.4897513, 5.0970949], // Magasin du monde-Oxfam Andenne
+    [49.6836096, 5.8152167], // Magasin du monde-Oxfam Arlon commerce équitable
+    [50.6293252, 3.7753304], // Magasin du monde-Oxfam Ath
+    [49.562486, 5.837698],   // Magasin du monde-Oxfam Athus
+    [50.4736385, 5.6754438], // Magasin du monde-Oxfam Aywaille
+    [50.0076623, 5.7189639], // Magasin du monde-Oxfam Bastogne
+    [50.1103844, 4.9555448], // Magasin du monde-Oxfam Beauraing
+    [50.8639147, 4.2947291], // Magasin du monde-Oxfam Berchem-Sainte-Agathe
+    [49.855584, 5.263588],   // Magasin du monde-Oxfam Bertrix
+    [50.79893, 4.4171199],   // Magasin du monde-Oxfam Boitsfort
+    [50.6829231, 4.3709453], // Magasin du monde-Oxfam Braine-l'Alleud
+    [50.6102754, 4.137038],  // Magasin du monde-Oxfam Braine-le-Comte
+    [50.8132531, 4.3815689], // Magasin du monde-Oxfam Bruxelles-ULB
+    [50.4077718, 4.4467907], // Magasin du monde-Oxfam Charleroi
+    [50.2939182, 5.0995631], // Magasin du monde-Oxfam Ciney
+    [50.5929001, 5.6056969], // Magasin du monde-Oxfam Embourg
+    [50.693643, 4.0393062],  // Magasin du monde-Oxfam Enghien
+    [50.5601358, 4.6923305], // Magasin du monde-Oxfam Gembloux
+    [50.4276263, 4.4727555], // Magasin du monde-Oxfam Gilly
+    [50.5187174, 5.2409845], // Magasin du monde-Oxfam Huy
+    [50.8253688, 4.3594543], // Magasin du monde-Oxfam Ixelles Bailli
+    [50.8170561, 4.3876379], // Magasin du monde-Oxfam Ixelles Boondael
+    [50.4485616, 3.8896446], // Magasin du monde-Oxfam Jemappes
+    [50.8729071, 4.3259122], // Magasin du monde-Oxfam Jette
+    [50.476616, 4.1864842],  // Magasin du monde-Oxfam La Louvière
+    [50.6414045, 5.5717234], // Magasin du monde-Oxfam Liège Centre
+    [50.6469428, 5.5815182], // Magasin du monde-Oxfam Liège Féronstrée
+    [50.6691087, 4.6122811], // Magasin du monde-Oxfam Louvain-la-Neuve
+    [50.4256924, 6.026688],  // Magasin du monde-Oxfam Malmedy
+    [50.4356051, 4.7952295], // Magasin du monde-Oxfam Malonne
+    [50.2278769, 5.3442866], // Magasin du monde-Oxfam Marche-en-Famenne
+    [49.83276, 5.740342],    // Magasin du monde-Oxfam Martelange
+    [50.7451498, 3.217268],  // Magasin du monde-Oxfam Mouscron
+    [50.4630933, 4.8688287], // Magasin du monde-Oxfam Namur Bas de la Place
+    [50.4644725, 4.8637408], // Magasin du monde-Oxfam Namur Haute Marcelle
+    [49.841874, 5.4360626],  // Magasin du monde-Oxfam Neufchâteau
+    [50.7124894, 4.5305369], // Magasin du monde-Oxfam Rixensart
+    [50.0240278, 5.3755644], // Magasin du monde-Oxfam Saint-Hubert
+    [50.5779485, 4.0693739], // Magasin du monde-Oxfam Soignies
+    [50.8407034, 4.4627456], // Magasin du monde-Oxfam Stockel
+    [50.3413324, 4.2842034], // Magasin du monde-Oxfam Thuin
+    [50.6074041, 3.3886473], // Magasin du monde-Oxfam Tournai
+    [50.5921058, 5.8575444], // Magasin du monde-Oxfam Verviers commerce équitable
+    [50.5815268, 5.8396593], // Magasin du monde-Oxfam Verviers Ensival
+    [50.2875215, 5.9150762], // Magasin du monde-Oxfam Vielsalm
+    [49.5684756, 5.5318057], // Magasin du monde-Oxfam Virton
+    [50.6978508, 5.25622],   // Magasin du monde-Oxfam Waremme
+    [50.7181799, 4.3980714], // Magasin du monde-Oxfam Waterloo
+    [50.7174056, 4.6104789], // Magasin du monde-Oxfam Wavre commerce équitable
+    [50.6418996, 5.792615],   // Oxfam & Nos Racines
+    [46.4987091, 11.3585312],   // Altromercato (Italie - Bozen) / Gros HUB 1
+    [50.7042332, 4.5866967], // Libera Terra / Gros HUB 2
+    [50.456694, 3.977349],// Comptoir Coprosain - Mons / Gros HUB 3
+    [50.6195281, 3.3717123], // Comptoir Coprosain - Tournai / Gros HUB 4
+    [50.6807074, 4.3675192], // Comptoir Coprosain - Braine-l'Alleud / Gros HUB 5
+    [50.6195647, 5.564336], // Chez Georgette / Gros HUB 6
+    [50.628649, 5.8001565], // Ferme Colyn / Gros HUB 7 NOPPP
+    [50.6220947, 5.5881458], // Les Petits Producteurs (Vennes) / Gros HUB 8 NOPPP
+    [50.6353494, 3.7153965] // DIVERS DRIVE FOUCAUMONT / Gros HUB 9 NOPPP
+    
+];
+
+
+// Function to check if coordinates match any in the excluded list
+function isOxfamCoordinate(coord) {
+    return oxfamCoordinates.some(oxfamCoord =>
+        oxfamCoord[0] === coord[1] && oxfamCoord[1] === coord[0]
+    );
+}
+
+// Filter function to exclude features with coordinates matching the Oxfam list
+function filterFeatures(feature) {
+    if (feature.geometry.type === 'LineString') {
+        return !feature.geometry.coordinates.some(coord => isOxfamCoordinate(coord));
+    }
+    return true;
+}
+
+// Apply the filter to the geoJSON data
+L.geoJSON(geojsonFeature, { filter: filterFeatures }).addTo(map);
+
+function onMapClick(e) {
+    alert("You clicked the map at " + e.latlng);
+}
+
+map.on('click', onMapClick);
